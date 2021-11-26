@@ -20,6 +20,7 @@ data "alicloud_vpcs" "default" {
 }
 
 data "alicloud_vswitches" "all" {
+  zone_id = "cn-hangzhou-g"
   vpc_id = data.alicloud_vpcs.default.ids.0
 }
 
