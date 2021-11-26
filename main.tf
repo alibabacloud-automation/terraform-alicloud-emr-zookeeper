@@ -63,6 +63,18 @@ resource "alicloud_emr_cluster" "this" {
   user_defined_emr_ecs_role = alicloud_ram_role.default.0.name
   charge_type               = var.charge_type
 
+  host_group {
+    host_group_name   = "master_group"
+    host_group_type   = "MASTER"
+    node_count        = "2"
+    instance_type     = data.alicloud_emr_instance_types.default.types.0.id
+    disk_type         = data.alicloud_emr_disk_types.data_disk.types.0.value
+    disk_capacity     = data.alicloud_emr_disk_types.data_disk.types.0.min > 160 ? data.alicloud_emr_disk_types.data_disk.types.0.min : 160
+    disk_count        = "1"
+    sys_disk_type     = data.alicloud_emr_disk_types.system_disk.types.0.value
+    sys_disk_capacity = data.alicloud_emr_disk_types.system_disk.types.0.min > 160 ? data.alicloud_emr_disk_types.system_disk.types.0.min : 160
+  }
+
   dynamic "host_group" {
     for_each = var.host_groups
     content {
