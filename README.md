@@ -44,7 +44,7 @@ module "emr-zookeeper" {
 
 ## Examples
 
-* [emr-zookeeper example](https://github.com/terraform-alicloud-modules/terraform-alicloud-emr-zookeeper/tree/master/example)
+* [emr-zookeeper example](https://github.com/terraform-alicloud-modules/terraform-alicloud-emr-zookeeper/tree/master/examples/complete)
 
 ## Notes
 From the version v1.1.0, the module has removed the following `provider` setting:
@@ -112,7 +112,7 @@ More details see [How to use provider in the module](https://www.terraform.io/do
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
 | <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.71.0 |
 
 Submit Issues

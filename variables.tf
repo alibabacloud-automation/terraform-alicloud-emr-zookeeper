@@ -1,9 +1,3 @@
-variable "create" {
-  description = "The switch to control creation of the emr cluster or not."
-  type        = bool
-  default     = false
-}
-
 variable "region" {
   description = "(Deprecated from version 1.1.0) The region used to launch this module resources."
   type        = string
@@ -27,11 +21,18 @@ variable "skip_region_validation" {
   type        = bool
   default     = false
 }
+#alicloud_emr_instance_types
+variable "support_local_storage" {
+  description = "Whether to support local storage."
+  type        = bool
+  default     = false
+}
 
-variable "emr_cluster_name" {
-  description = "The name of this new created emr cluster instance."
-  type        = string
-  default     = "terraform-test-zookeeper-module"
+#alicloud_ram_role
+variable "create" {
+  description = "The switch to control creation of the emr cluster or not."
+  type        = bool
+  default     = false
 }
 
 variable "ram_role_name" {
@@ -40,19 +41,39 @@ variable "ram_role_name" {
   default     = ""
 }
 
-variable "support_local_storage" {
-  description = "Whether to support local storage."
-  type        = bool
-  default     = false
-}
-variable "zone_id" {
-  description = "The zone id used to created emr cluster."
+variable "document" {
+  description = "Authorization strategy of the RAM role."
   type        = string
   default     = ""
 }
 
-variable "vswitch_id" {
-  description = "The vswitch id used to created emr cluster."
+variable "description" {
+  description = "The specification of module ram role description."
+  type        = string
+  default     = ""
+}
+
+variable "force" {
+  description = "This parameter is used for resource destroy"
+  type        = bool
+  default     = false
+}
+
+#alicloud_emr_cluster
+variable "emr_cluster_name" {
+  description = "The name of this new created emr cluster instance."
+  type        = string
+  default     = ""
+}
+
+variable "emr_version" {
+  description = "The version of this new created emr zookeeper cluster."
+  type        = string
+  default     = "EMR-3.24.0"
+}
+
+variable "zone_id" {
+  description = "The zone id used to created emr cluster."
   type        = string
   default     = ""
 }
@@ -63,10 +84,22 @@ variable "security_group_id" {
   default     = ""
 }
 
+variable "vswitch_id" {
+  description = "The vswitch id used to created emr cluster."
+  type        = string
+  default     = ""
+}
+
 variable "charge_type" {
   description = "The instance charge type. Valid values: Prepaid and PostPaid. Default to PostPaid."
   type        = string
   default     = "PostPaid"
+}
+
+variable "host_groups" {
+  description = "Host groups to attach to the emr cluster instance."
+  type        = list(map(string))
+  default     = []
 }
 
 variable "instance_type" {
@@ -98,23 +131,3 @@ variable "system_disk_capacity" {
   type        = number
   default     = 0
 }
-
-variable "emr_version" {
-  description = "The version of this new created emr zookeeper cluster."
-  type        = string
-  default     = "EMR-3.24.0"
-}
-
-variable "host_groups" {
-  description = "Host groups to attach to the emr cluster instance."
-  type        = list(map(string))
-  default = [
-    {
-      host_group_name = "core_group"
-      host_group_type = "CORE"
-      node_count      = "3"
-      disk_count      = "1"
-    }
-  ]
-}
-
